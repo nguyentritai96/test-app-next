@@ -21,7 +21,7 @@ export default function Home() {
           <code className={styles.code}>pages/index.js</code>
         </p>
         <p className={styles.description}>
-          Xin chào ứng dụng 2
+          Đây là ứng dụng mới build
         </p>
 
         <div className={styles.grid}>
