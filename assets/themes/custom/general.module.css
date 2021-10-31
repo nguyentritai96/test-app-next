@@ -1,0 +1,26 @@
+.wrapper {
+    display: flex;
+  }
+  
+  .left-content {
+    background-color: red;
+    width: 400px;
+    height: 400px;
+    border-radius: 50%;
+    order: 2;
+  }
+  
+  .left-content span {
+    display: none;
+  }
+  .left-content:after {
+    content: "It is changed from left content";
+  }
+  
+  .right-content {
+    background-color: green;
+    width: 600px;
+    height: 300px;
+    order: 1;
+  }
+  
