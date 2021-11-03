@@ -33,6 +33,17 @@ module.exports = {
     ],
     'import/newline-after-import': 1,
     'no-plusplus': 'off',
+    'import/extensions': [
+      // overwrite airbnb for typescript
+      'error',
+      'ignorePackages',
+      {
+        js: 'never',
+        jsx: 'never',
+        ts: 'never',
+        tsx: 'never',
+      },
+    ],
   },
   parserOptions: {
     project: './tsconfig.eslint.json',

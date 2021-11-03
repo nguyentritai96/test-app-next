@@ -1,6 +1,9 @@
+import { useSelector, useDispatch } from 'react-redux';
+
 import Button from '@components/Button';
 import demoService from '@services/demo/index';
 import { MyProvider, useMyContext } from 'src/contexts/Demo/state';
+import { addNewCount } from 'src/store/test/actions';
 
 interface post {
   userId: number;
@@ -11,8 +14,22 @@ interface post {
 const Test = (props) => {
   const { posts } = props;
   const store = useMyContext();
-  console.log(store, 'store');
-  return <div>Test context {store.hello}</div>;
+  const number = useSelector((state) => state.Test.number);
+  const dispatch = useDispatch();
+
+  console.log(store, 'store', number);
+
+  const onClick = () => {
+    dispatch(addNewCount({ number: 3 }));
+  };
+
+  return (
+    <div>
+      <button type="button" onClick={onClick}>
+        Test context {store.hello}
+      </button>
+    </div>
+  );
 };
 
 const MyTest = (props) => (
