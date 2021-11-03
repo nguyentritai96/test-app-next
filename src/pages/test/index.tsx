@@ -1,9 +1,10 @@
-import { useSelector, useDispatch } from 'react-redux';
-
-import Button from '@components/Button';
-import demoService from '@services/demo/index';
-import { MyProvider, useMyContext } from 'src/contexts/Demo/state';
-import { addNewCount } from 'src/store/test/actions';
+// Services
+import demoService from '@services/demo';
+// Components
+import Test from 'src/layouts/Test';
+// Store
+import { wrapper } from '@store';
+import { actionTypes } from 'src/store/test/middleware';
 
 interface post {
   userId: number;
@@ -11,42 +12,32 @@ interface post {
   title: string;
 }
 
-const Test = (props) => {
-  const { posts } = props;
-  const store = useMyContext();
-  const number = useSelector((state) => state.Test.number);
-  const dispatch = useDispatch();
-
-  console.log(store, 'store', number);
-
-  const onClick = () => {
-    dispatch(addNewCount({ number: 3 }));
-  };
-
-  return (
-    <div>
-      <button type="button" onClick={onClick}>
-        Test context {store.hello}
-      </button>
-    </div>
-  );
-};
-
-const MyTest = (props) => (
-  <MyProvider>
-    <Test {...props} />
-  </MyProvider>
+const MyTest = () => (
+  <>
+    <Test />
+  </>
 );
 
 export default MyTest;
 
-export async function getStaticProps(context) {
-  const response = await demoService.getPosts({}, { isOriginalUrl: true });
+export const getStaticProps = wrapper.getStaticProps(
+  (store) => async (context) => {
+    console.log(
+      '2. Page.getStaticProps uses the store to dispatch things',
+      store.getState(),
+    );
+    store.dispatch({
+      type: actionTypes.ADD_NEW_MW,
+      payload: 6,
+    });
 
-  return {
-    props: {
-      posts: response.slice(0, 3),
-      context: JSON.stringify(context),
-    },
-  };
-}
+    const response = await demoService.getPosts({}, { isOriginalUrl: true });
+
+    return {
+      props: {
+        posts: [].slice(0, 3),
+        context: JSON.stringify(context),
+      },
+    };
+  },
+);

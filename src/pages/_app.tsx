@@ -2,7 +2,7 @@
 import type { AppProps } from 'next/app';
 
 // Store
-import { wrapper } from 'src/store';
+import { wrapper } from '@store';
 
 // Styles
 import '../styles/globals.css';

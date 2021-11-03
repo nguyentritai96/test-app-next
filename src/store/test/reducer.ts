@@ -1,28 +1,28 @@
 // Libraries
+import { createSlice } from '@reduxjs/toolkit';
 import { HYDRATE } from 'next-redux-wrapper';
 
-// Actions
-import { actionTypes } from '@store/test/actions';
-
-const initialState = {
-  number: 1,
-};
-
-function reducer(state = initialState, action) {
-  switch (action.type) {
-    case HYDRATE: {
-      return { ...state, ...action.payload };
-    }
-
-    case actionTypes.ADD_NEW_RD:
-      return {
-        ...state,
-        ...{ number: action.payload.number },
-      };
-
-    default:
-      return state;
-  }
+export interface State {
+  number: number;
 }
 
-export default reducer;
+const Reducer = createSlice({
+  name: 'Test',
+  initialState: {
+    number: 1,
+  },
+  reducers: {
+    fetchData: (state, action) => ({
+      number: action.payload,
+    }),
+  },
+  extraReducers: {
+    [HYDRATE]: (state, action) => ({
+      ...state,
+      ...action.payload.Test,
+    }),
+  },
+});
+
+export const { fetchData } = Reducer.actions;
+export default Reducer.reducer;

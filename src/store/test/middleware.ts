@@ -2,11 +2,17 @@
 import { takeEvery, put } from 'redux-saga/effects';
 
 // Actions
-import { actionTypes } from './actions';
+import { fetchData } from './reducer';
+
+const KEY = 'TEST';
+
+export const actionTypes = {
+  ADD_NEW_MW: `__MW__${KEY}__ADD_NEW`,
+};
 
 function* handleAddNew(args) {
   try {
-    yield put({ type: actionTypes.ADD_NEW_RD, payload: args.payload });
+    yield put(fetchData(args.payload));
   } catch (e) {
     // Error
   }
