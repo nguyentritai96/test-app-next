@@ -20,15 +20,40 @@ const MyTest = () => (
 
 export default MyTest;
 
-export const getStaticProps = wrapper.getStaticProps(
+// export const getStaticProps = wrapper.getStaticProps(
+//   (store) => async (context) => {
+//     console.log(
+//       '2. Page.getStaticProps uses the store to dispatch things',
+//       store.getState(),
+//       store.persistor.getState(),
+//     );
+//     // store.dispatch({
+//     //   type: actionTypes.ADD_NEW_MW,
+//     //   payload: 6,
+//     // });
+
+//     const response = await demoService.getPosts({}, { isOriginalUrl: true });
+
+//     return {
+//       props: {
+//         posts: [].slice(0, 3),
+//         context: JSON.stringify(context),
+//       },
+//     };
+//   },
+// );
+
+export const getServerSideProps = wrapper.getServerSideProps(
   (store) => async (context) => {
     console.log(
       '2. Page.getStaticProps uses the store to dispatch things',
       store.getState(),
     );
-    // store.dispatch({
+
+    // console.log(context.req.cookies['Test.number']);
+    // await store.dispatch({
     //   type: actionTypes.ADD_NEW_MW,
-    //   payload: 6,
+    //   payload: 2,
     // });
 
     const response = await demoService.getPosts({}, { isOriginalUrl: true });
@@ -36,7 +61,6 @@ export const getStaticProps = wrapper.getStaticProps(
     return {
       props: {
         posts: [].slice(0, 3),
-        context: JSON.stringify(context),
       },
     };
   },

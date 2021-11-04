@@ -16,12 +16,16 @@ const Test = (props) => {
   console.log(store, 'store', number);
 
   const onClick = () => {
-    dispatch({ type: actionTypes.ADD_NEW_MW, payload: 3 });
+    dispatch({ type: actionTypes.ADD_NEW_MW, payload: number + 1 });
   };
 
   return (
     <div>
-      <button type="button" onClick={onClick}>
+      <button
+        type="button"
+        className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+        onClick={onClick}
+      >
         Test context {store.hello}
       </button>
     </div>

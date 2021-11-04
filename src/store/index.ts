@@ -6,6 +6,10 @@ import { Store } from 'redux';
 import { persistStore, persistReducer } from 'redux-persist';
 import storage from 'redux-persist/lib/storage';
 import autoMergeLevel2 from 'redux-persist/lib/stateReconciler/autoMergeLevel2';
+import {
+  nextReduxCookieMiddleware,
+  wrapMakeStore,
+} from 'next-redux-cookie-wrapper';
 
 // Middleware
 import rootSaga from '@store/saga';
@@ -15,7 +19,7 @@ export interface SagaStore extends Store {
   sagaTask?: Task;
 }
 
-export const makeStore = (context: Context) => {
+export const makeStore = wrapMakeStore((context: Context) => {
   // const isServer = typeof window === 'undefined';
 
   // if (!isServer) {
@@ -51,7 +55,13 @@ export const makeStore = (context: Context) => {
   // 2: Add an extra parameter for applying middleware:
   const store = configureStore({
     reducer: persistedReducer,
-    middleware: [sagaMiddleware],
+    middleware: (getDefaultMiddleware) => [
+      nextReduxCookieMiddleware({
+        compress: false,
+        subtrees: ['Test.number'],
+      }),
+      sagaMiddleware,
+    ],
   });
 
   store.persistor = persistStore(store); // Nasty hack
@@ -61,6 +71,8 @@ export const makeStore = (context: Context) => {
 
   // 4: now return the store:
   return store;
-};
+});
 
-export const wrapper = createWrapper<Store>(makeStore, { debug: true });
+export const wrapper = createWrapper<Store>(makeStore, {
+  debug: true,
+});
