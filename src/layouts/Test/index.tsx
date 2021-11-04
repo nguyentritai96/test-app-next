@@ -2,9 +2,9 @@
 import { useSelector, useDispatch } from 'react-redux';
 
 // Context API
-import { MyProvider, useMyContext } from 'src/contexts/Demo/state';
+import { MyProvider, useMyContext } from 'src/contexts/Test';
 // Store
-import { actionTypes } from 'src/store/test/middleware';
+import { actionTypes } from '@store/test/middleware';
 import { wrapper } from '@store';
 
 const Test = (props) => {

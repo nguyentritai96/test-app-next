@@ -1,6 +1,6 @@
 import { createContext, useContext } from 'react';
 
-const MyContext = createContext();
+const MyContext = createContext({});
 
 export function MyProvider({ children }) {
   const value = { hello: 'hello', calm: 'calmeee' };

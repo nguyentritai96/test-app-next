@@ -26,10 +26,10 @@ export const getStaticProps = wrapper.getStaticProps(
       '2. Page.getStaticProps uses the store to dispatch things',
       store.getState(),
     );
-    store.dispatch({
-      type: actionTypes.ADD_NEW_MW,
-      payload: 6,
-    });
+    // store.dispatch({
+    //   type: actionTypes.ADD_NEW_MW,
+    //   payload: 6,
+    // });
 
     const response = await demoService.getPosts({}, { isOriginalUrl: true });
 
